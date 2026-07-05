@@ -27,6 +27,9 @@ ThemeData lightTheme = ThemeData(
    selectedItemColor:  LightColor.primaryColor ,
     showUnselectedLabels: true,
   ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: Colors.black,
+  ),
   textTheme: TextTheme(
     titleMedium: TextStyle(color: Color(0xFF161F1B), fontSize: 16),
     labelMedium: TextStyle(color: Colors.black, fontSize: 16),
