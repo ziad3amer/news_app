@@ -5,6 +5,8 @@ ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
   colorScheme: ColorScheme.light(),
+  primaryColor: LightColor.primaryColor,
+
   scaffoldBackgroundColor: Color(0xFFf5f5f5),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(foregroundColor: LightColor.primaryColor),
