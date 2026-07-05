@@ -10,7 +10,6 @@ void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferencesMangar().init();
 
-
   runApp(const MyApp());
 }
 

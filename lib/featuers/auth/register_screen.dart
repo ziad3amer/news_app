@@ -22,7 +22,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
 
   String? errorMessage;
-
   bool isLoading = false;
 
   void register() async {
@@ -137,6 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(errorMessage!,style: TextStyle(color: Colors.red),),
                 ),
+                SizedBox(height: 24,),
                 ElevatedButton(
                   onPressed: () {
                     if (_FormKey.currentState?.validate() ?? false) {
