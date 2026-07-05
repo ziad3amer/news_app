@@ -1,16 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
+import 'package:news_app/featuers/main/main_screen.dart';
 
 import 'register_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
 
   bool isVisible = false;
-  final GlobalKey<FormState> _form= GlobalKey();
+  String? errorMessage;
+  bool isLoading = false;
+
+  final GlobalKey<FormState> _form = GlobalKey();
+
+  void login() async {
+    setState(() {
+      errorMessage = null;
+      isLoading = true;
+    });
+
+    await Future.delayed(Duration(seconds: 3));
+
+    final savedEmail = PreferencesMangar().getString("user_email");
+    final savedPassword = PreferencesMangar().getString("user_password");
+    if (savedEmail == null || savedPassword == null) {
+      setState(() {
+        errorMessage = "No Account Found Please Register First";
+        isLoading=false;
+      });
+      return;
+    }
+    if (savedEmail != emailController.text || savedPassword != passwordController.text) {
+      setState(() {
+        errorMessage = "Incorrect Email or Password";
+        isLoading=false;
+      });
+      return;
+    }
+    await PreferencesMangar().setBoll("is_logged_in", true);
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return MainScreen();
+        },
+      ),
+    );
+    setState(() {
+      errorMessage = null;
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +82,9 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(child: Image.asset("assets/images/logo.png", height: 45)),
+                Center(
+                  child: Image.asset("assets/images/logo.png", height: 45),
+                ),
                 SizedBox(height: 40),
                 Text(
                   'Welcome to Newts',
@@ -62,17 +115,32 @@ class LoginScreen extends StatelessWidget {
                   hintText: '*************',
                   title: 'Password',
                   obscureText: true,
-                  validator: (value){
+                  validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter your Password";
                     }
-                    return null ;
+                    return null;
                   },
                 ),
+                if (errorMessage != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      errorMessage!,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
                 SizedBox(height: 24),
-                ElevatedButton(onPressed: () {
-                  if(_form.currentState?.validate()??false){}
-                }, child: Text("Sign In")),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_form.currentState?.validate() ?? false) {
+                      login();
+                    }
+                  },
+                  child: isLoading
+                      ?CircularProgressIndicator()
+                      : Text("Sign In"),
+                ),
                 SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -3,6 +3,7 @@ import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/featuers/auth/login_screen.dart';
 import 'package:news_app/featuers/home/home_screen.dart';
+import 'package:news_app/featuers/main/main_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
@@ -50,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) {
-            return HomeScreen();
+            return MainScreen();
           },
         ),
       );
