@@ -21,11 +21,21 @@ class HomeScreen extends StatelessWidget {
       child: Consumer<HomeController>(
         builder: (BuildContext context, controller, Widget? child) {
           return Scaffold(
-            body: Column(
-              children: [
+            body: CustomScrollView(
+              slivers: [
                 TrendingNews(),
-                ViewAllComponent(title: 'Categories', titleColor: Color(0xFF141414), onTap: () {}),
+                SliverToBoxAdapter(child: ViewAllComponent(title: 'Categories', titleColor: Color(0xFF141414), onTap: () {})),
                 CategoriesList(),
+                SliverList.builder(
+                  itemCount: controller.newsTopHeadlineList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(height: 20,width: 50,
+                      color: Colors.red,),
+                    );
+                  },
+                ),
               ],
             ),
           );

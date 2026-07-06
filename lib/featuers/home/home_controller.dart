@@ -23,11 +23,15 @@ class HomeController with ChangeNotifier {
   List<NewsArticlesModel> newsEverythingList = [];
   ApiService apiService = ApiService();
 
-  getTopHeadline() async {
+  getTopHeadline({String? category}) async {
     try {
       Map<String, dynamic> result = await apiService.get(
         ApiConfig.topHeadlines,
-        params: {"country": "us"},
+        params: {
+          "country": "us",
+          "category":selectedCategory,
+
+        },
       );
 
       newsTopHeadlineList = (result["articles"] as List)
@@ -65,6 +69,7 @@ class HomeController with ChangeNotifier {
 
   void updateSelectedCategory(String category) {
     selectedCategory=category;
+    getTopHeadline(category:selectedCategory);
     notifyListeners();
   }
 }
