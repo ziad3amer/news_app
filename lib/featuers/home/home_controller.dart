@@ -18,6 +18,7 @@ class HomeController with ChangeNotifier {
   bool topHeadlineLoading = true;
 
   String? errorMessage;
+  String? selectedCategory ;
   List<NewsArticlesModel> newsTopHeadlineList = [];
   List<NewsArticlesModel> newsEverythingList = [];
   ApiService apiService = ApiService();
@@ -42,7 +43,7 @@ class HomeController with ChangeNotifier {
     notifyListeners();
   }
 
-  getTopEverything() async {
+  getTopEverything({String? category}) async {
     try {
       Map<String, dynamic> result = await apiService.get(
         ApiConfig.everything,
@@ -60,5 +61,10 @@ class HomeController with ChangeNotifier {
       errorMessage = e.toString();
     }
       notifyListeners();
+  }
+
+  void updateSelectedCategory(String category) {
+    selectedCategory=category;
+    notifyListeners();
   }
 }

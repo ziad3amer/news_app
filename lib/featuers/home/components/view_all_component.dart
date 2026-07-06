@@ -42,4 +42,5 @@ class ViewAllComponent extends StatelessWidget {
       ),
     );
   }
+
 }
