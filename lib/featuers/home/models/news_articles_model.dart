@@ -1,7 +1,7 @@
 
 class NewsArticlesModel {
   final String? author;
-  final String? title;
+  final String title;
   final String? description;
   final String? url;
   final String? urlToImage;
