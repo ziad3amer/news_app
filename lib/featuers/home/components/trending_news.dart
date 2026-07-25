@@ -5,7 +5,9 @@ import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
+import 'trending_news_shimmer.dart';
 import 'view_all_component.dart';
 
 class TrendingNews extends StatelessWidget {
@@ -40,7 +42,7 @@ class TrendingNews extends StatelessWidget {
                       builder: (BuildContext context, controller, Widget? child) {
                         switch (controller.everythingStatus) {
                           case RequestStatusEnums.loading:
-                            return Center(child: CircularProgressIndicator());
+                            return TrendingNewsShimmer();
                           case RequestStatusEnums.error:
                             return Center(child: Text(controller.errorMessage!));
                           case RequestStatusEnums.loaded:

@@ -13,9 +13,10 @@ class HomeController with ChangeNotifier {
 
 
   RequestStatusEnums everythingStatus =RequestStatusEnums.loading;
+  RequestStatusEnums newsTopHeadlineStates =RequestStatusEnums.loading;
 
 
-  bool topHeadlineLoading = true;
+
 
   String? errorMessage;
   String? selectedCategory ;
@@ -25,6 +26,8 @@ class HomeController with ChangeNotifier {
 
   getTopHeadline({String? category}) async {
     try {
+      newsTopHeadlineStates =RequestStatusEnums.loading;
+      notifyListeners();
       Map<String, dynamic> result = await apiService.get(
         ApiConfig.topHeadlines,
         params: {
@@ -38,10 +41,10 @@ class HomeController with ChangeNotifier {
           .map((e) => NewsArticlesModel.fromJson(e))
           .toList();
 
-      topHeadlineLoading = false;
+      newsTopHeadlineStates = RequestStatusEnums.loaded;
       errorMessage = null;
     } catch (e) {
-      topHeadlineLoading = false;
+      newsTopHeadlineStates = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
     notifyListeners();
