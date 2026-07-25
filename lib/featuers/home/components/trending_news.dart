@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/enums/request_status_enums.dart';
+import 'package:news_app/core/extentions/data_time_extention.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
@@ -115,7 +116,7 @@ class TrendingNews extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Text(
-                                                  formatDate(model.publishedAt.toString()),
+                                                  model.publishedAt.formateDateTime(),
                                                     style: TextStyle(
                                                       fontWeight: FontWeight.w400,
                                                       fontSize: 16,
@@ -146,16 +147,4 @@ class TrendingNews extends StatelessWidget {
     );
   }
 
-  String formatDate(String date) {
-    if (date == null) return "";
-    final deff = DateTime.now().difference(DateTime.parse(date));
-    if(deff.inMinutes < 60 )
-    {
-    return "${deff.inMinutes}m ago";
-    }
-    if(deff.inHours<24){
-      return "${deff.inHours}h ago";
-    }
-    return "${deff.inDays}d ago";
-  }
 }
