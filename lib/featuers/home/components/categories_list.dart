@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/theme/light_color.dart';
+import 'package:news_app/featuers/home/categories_screen.dart';
 import 'package:news_app/featuers/home/components/view_all_component.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
 class CategoriesList extends StatelessWidget {
-   CategoriesList({super.key});
+  CategoriesList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,22 @@ class CategoriesList extends StatelessWidget {
         builder: (BuildContext context, controller, Widget? child) {
           return Column(
             children: [
-              ViewAllComponent(title: 'Categories', titleColor: Color(0xFF141414), onTap: () {}),
+              ViewAllComponent(
+                title: 'Categories',
+                titleColor: Color(0xFF141414),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return ChangeNotifierProvider.value(
+                        value: controller,
+                        child: CategoriesScreen());
+                      },
+                    ),
+                  );
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, top: 16, bottom: 16),
                 child: SizedBox(
@@ -26,25 +42,20 @@ class CategoriesList extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       bool isSelected = controller.selectedCategory == categories[index];
                       return GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           controller.updateSelectedCategory(categories[index]);
                         },
                         child: IntrinsicWidth(
                           child: Column(
                             children: [
                               Text(
-                                categories[index][0].toUpperCase() + categories[index].substring(1) ,
+                                categories[index][0].toUpperCase() + categories[index].substring(1),
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xFF363636)),
                               ),
-                              if(isSelected)
-                                ...[
-                                  SizedBox(height: 4,),
-                                  Container(
-                                    height: 2,
-                                    color: LightColor.primaryColor,
-                                  )
-                                ]
-
+                              if (isSelected) ...[
+                                SizedBox(height: 4),
+                                Container(height: 2, color: LightColor.primaryColor),
+                              ],
                             ],
                           ),
                         ),
@@ -59,7 +70,6 @@ class CategoriesList extends StatelessWidget {
             ],
           );
         },
-      
       ),
     );
   }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
 import 'package:news_app/core/theme/light_theme.dart';
+import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:news_app/featuers/home/home_screen.dart';
 import 'package:news_app/featuers/main/main_screen.dart';
 import 'package:news_app/featuers/onpording/onboarding_screen.dart';
 import 'package:news_app/featuers/splash/splash_screen.dart';
+import 'package:provider/provider.dart' show ChangeNotifierProvider;
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
