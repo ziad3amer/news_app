@@ -8,28 +8,24 @@ ThemeData lightTheme = ThemeData(
   primaryColor: LightColor.primaryColor,
 
   scaffoldBackgroundColor: Color(0xFFf5f5f5),
-  textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(foregroundColor: LightColor.primaryColor),
-  ),
+  textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom(foregroundColor: LightColor.primaryColor)),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: LightColor.primaryColor,
       foregroundColor: Color(0xFFFFFCFC),
       textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.zero),
-      fixedSize: Size(400, 52)
+      fixedSize: Size(400, 52),
     ),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-   backgroundColor: LightColor.backgroundColor,
-   type: BottomNavigationBarType.fixed,
-   unselectedItemColor: Color(0xFF363636),
-   selectedItemColor:  LightColor.primaryColor ,
+    backgroundColor: LightColor.backgroundColor,
+    type: BottomNavigationBarType.fixed,
+    unselectedItemColor: Color(0xFF363636),
+    selectedItemColor: LightColor.primaryColor,
     showUnselectedLabels: true,
   ),
-  progressIndicatorTheme: ProgressIndicatorThemeData(
-    color: Colors.white,
-  ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.white),
   textTheme: TextTheme(
     titleMedium: TextStyle(color: Color(0xFF161F1B), fontSize: 16),
     labelMedium: TextStyle(color: Colors.black, fontSize: 16),
@@ -56,6 +52,10 @@ ThemeData lightTheme = ThemeData(
       borderSide: BorderSide(color: Color(0xFFD1DAD6), width: 1),
     ),
   ),
-
-
+  appBarTheme: AppBarTheme(
+    backgroundColor: Color(0xFFFFFFFF),
+    titleTextStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,
+    color: Color(0xFF141414),
+    ),
+  ),
 );
