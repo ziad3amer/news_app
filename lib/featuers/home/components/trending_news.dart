@@ -5,8 +5,6 @@ import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
-
 import 'trending_news_shimmer.dart';
 import 'view_all_component.dart';
 

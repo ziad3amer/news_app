@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 
 class ViewAllComponent extends StatelessWidget {
   const ViewAllComponent({
@@ -15,13 +16,13 @@ class ViewAllComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding:  EdgeInsets.symmetric(horizontal:AppSize.w16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color:titleColor?? Color(0xFFFFFCFC)),
+            style: TextStyle(fontSize: AppSize.sp18, fontWeight: FontWeight.w700, color:titleColor?? Color(0xFFFFFCFC)),
           ),
           InkWell(
             onTap: (){
@@ -30,7 +31,7 @@ class ViewAllComponent extends StatelessWidget {
             child: Text(
               "View all",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: AppSize.sp14,
                 fontWeight: FontWeight.w400,
                 color:titleColor?? Color(0xFFFFFCFC),
                 decoration: TextDecoration.underline,

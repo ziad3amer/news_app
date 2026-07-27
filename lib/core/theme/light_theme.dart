@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/theme/light_color.dart';
 
 ThemeData lightTheme = ThemeData(
@@ -13,9 +14,10 @@ ThemeData lightTheme = ThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: LightColor.primaryColor,
       foregroundColor: Color(0xFFFFFCFC),
-      textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+      textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: AppSize.sp16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.zero),
-      fixedSize: Size(400, 52),
+      fixedSize:Size(AppSize.w400, AppSize.h52),
+
     ),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -27,8 +29,8 @@ ThemeData lightTheme = ThemeData(
   ),
   progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.white),
   textTheme: TextTheme(
-    titleMedium: TextStyle(color: Color(0xFF161F1B), fontSize: 16),
-    labelMedium: TextStyle(color: Colors.black, fontSize: 16),
+    titleMedium: TextStyle(color: Color(0xFF161F1B), fontSize: AppSize.sp16),
+    labelMedium: TextStyle(color: Colors.black, fontSize: AppSize.sp16),
   ),
   inputDecorationTheme: InputDecorationTheme(
     hintStyle: TextStyle(color: Color(0xFF9E9E9E)),
@@ -54,7 +56,7 @@ ThemeData lightTheme = ThemeData(
   ),
   appBarTheme: AppBarTheme(
     backgroundColor: Color(0xFFFFFFFF),
-    titleTextStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,
+    titleTextStyle: TextStyle(fontSize: AppSize.sp16, fontWeight: FontWeight.w700,
     color: Color(0xFF141414),
     ),
   ),

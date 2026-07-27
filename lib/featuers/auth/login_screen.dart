@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/featuers/main/main_screen.dart';
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding:  EdgeInsets.all(AppSize.pw16),
           child: Form(
             key: _form,
             child: Column(
@@ -83,14 +84,14 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Image.asset("assets/images/logo.png", height: 45),
+                  child: Image.asset("assets/images/logo.png", height: AppSize.h45),
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: AppSize.ph40),
                 Text(
                   'Welcome to Newts',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: AppSize.sp20, fontWeight: FontWeight.w700),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 CustomTextFormField(
                   controller: emailController,
                   hintText: 'ziad@gmail.com',
@@ -109,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 CustomTextFormField(
                   controller: passwordController,
                   hintText: '*************',
@@ -124,13 +125,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 if (errorMessage != null)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding:  EdgeInsets.symmetric(vertical: AppSize.h8),
                     child: Text(
                       errorMessage!,
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 ElevatedButton(
                   onPressed: () {
                     if (_form.currentState?.validate() ?? false) {
@@ -141,15 +142,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       ?CircularProgressIndicator()
                       : Text("Sign In"),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Don’t have an account ?",
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: AppSize.sp14),
                     ),
-                    SizedBox(width: 8),
+                    SizedBox(width: AppSize.pw8),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -165,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         "Sign Up",
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
-                          fontSize: 16,
+                          fontSize: AppSize.sp16,
                         ),
                       ),
                     ),

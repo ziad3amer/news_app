@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
 import 'package:news_app/featuers/auth/login_screen.dart';
 import 'package:news_app/featuers/models/onboarding_model.dart';
@@ -48,7 +49,7 @@ class OnboardingScreen extends StatelessWidget {
                                 child: Text(
                                   "Skip",
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize:AppSize.sp16,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -58,9 +59,9 @@ class OnboardingScreen extends StatelessWidget {
               ],
             ),
             body: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 30.0,
-                horizontal: 16,
+              padding:  EdgeInsets.symmetric(
+                vertical: AppSize.h30,
+                horizontal:AppSize.w16,
               ),
               child: Column(
                 children: [
@@ -80,22 +81,22 @@ class OnboardingScreen extends StatelessWidget {
                         return Column(
                           children: [
                             Image.asset(model.image),
-                            SizedBox(height: 24),
+                            SizedBox(height: AppSize.ph24),
                             Text(
                               model.title,
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
-                                fontSize: 20,
+                                fontSize:AppSize.sp20,
                                 color: Color(0xFF4E4B66),
                               ),
                             ),
-                            SizedBox(height: 12),
+                            SizedBox(height:AppSize.ph12),
                             Text(
                               model.description,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
-                                fontSize: 16,
+                                fontSize: AppSize.sp16,
                                 color: Color(0xFF6E7191),
                               ),
                             ),
@@ -115,7 +116,7 @@ class OnboardingScreen extends StatelessWidget {
                     },
                   ),
 
-                  SizedBox(height: 112),
+                  SizedBox(height:AppSize.ph112),
                   Consumer<OnboardingController>(
                     builder: (BuildContext context, value, Widget? child) {
                       return ElevatedButton(
