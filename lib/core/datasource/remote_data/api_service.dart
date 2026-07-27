@@ -3,6 +3,10 @@ import 'package:http/http.dart' as http;
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 
 class ApiService {
+  static final ApiService _instance = ApiService._();
+  ApiService._();
+  factory  ApiService()=>_instance;
+
   Future<dynamic> get(String endpoint, {Map<String, dynamic>? params}) async {
     var url = Uri.http(
       ApiConfig.baseUrl,

@@ -9,13 +9,15 @@ import 'package:news_app/featuers/home/home_controller.dart';
 
 import 'package:provider/provider.dart';
 
+import 'repos/new_repository.dart';
+
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeController>(
-      create: (BuildContext context) => HomeController(),
+      create: (BuildContext context) => HomeController(NewRepository()),
       child: Consumer<HomeController>(
         builder: (BuildContext context, controller, Widget? child) {
           return Scaffold(

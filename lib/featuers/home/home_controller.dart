@@ -3,10 +3,11 @@ import 'package:news_app/core/datasource/remote_data/api_config.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/enums/request_status_enums.dart';
 import 'package:news_app/featuers/home/models/news_articles_model.dart';
+import 'package:news_app/featuers/home/repos/new_repository.dart' show NewRepository;
 
 class HomeController with ChangeNotifier {
 
-  HomeController(){
+  HomeController(this.newRepository){
     getTopHeadline();
     getTopEverything();
   }
@@ -22,24 +23,13 @@ class HomeController with ChangeNotifier {
   String? selectedCategory ;
   List<NewsArticlesModel> newsTopHeadlineList = [];
   List<NewsArticlesModel> newsEverythingList = [];
-  ApiService apiService = ApiService();
+  final NewRepository newRepository ;
 
   getTopHeadline({String? category}) async {
     try {
       newsTopHeadlineStates =RequestStatusEnums.loading;
       notifyListeners();
-      Map<String, dynamic> result = await apiService.get(
-        ApiConfig.topHeadlines,
-        params: {
-          "country": "us",
-          "category":selectedCategory,
-
-        },
-      );
-
-      newsTopHeadlineList = (result["articles"] as List)
-          .map((e) => NewsArticlesModel.fromJson(e))
-          .toList();
+      newsTopHeadlineList = await newRepository.getTopHeadline(selectedCategory: selectedCategory);
 
       newsTopHeadlineStates = RequestStatusEnums.loaded;
       errorMessage = null;
@@ -52,14 +42,8 @@ class HomeController with ChangeNotifier {
 
   getTopEverything({String? category}) async {
     try {
-      Map<String, dynamic> result = await apiService.get(
-        ApiConfig.everything,
-        params: {"q": "Ai"},
-      );
 
-      newsEverythingList = (result["articles"] as List)
-          .map((e) => NewsArticlesModel.fromJson(e))
-          .toList();
+      newsEverythingList =await newRepository.getTopEverything();
 
       everythingStatus = RequestStatusEnums.loaded;
       errorMessage = null;
