@@ -2,32 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/enums/request_status_enums.dart';
+import 'package:news_app/core/mixins/safe_notify_mixin.dart';
+import 'package:news_app/core/repos/new_repository.dart';
 import 'package:news_app/featuers/home/models/news_articles_model.dart';
-import 'package:news_app/featuers/home/repos/new_repository.dart' show NewRepository;
+//import 'package:news_app/featuers/home/repos/new_repository.dart' show NewRepository, BaseNewsRpository;
 
-class HomeController with ChangeNotifier {
-
-  HomeController(this.newRepository){
+class HomeController extends ChangeNotifier with SafeNotify {
+  HomeController(this.newRepository) {
     getTopHeadline();
     getTopEverything();
   }
 
-
-  RequestStatusEnums everythingStatus =RequestStatusEnums.loading;
-  RequestStatusEnums newsTopHeadlineStates =RequestStatusEnums.loading;
-
-
-
+  RequestStatusEnums everythingStatus = RequestStatusEnums.loading;
+  RequestStatusEnums newsTopHeadlineStates = RequestStatusEnums.loading;
 
   String? errorMessage;
-  String? selectedCategory ;
+  String? selectedCategory;
+
   List<NewsArticlesModel> newsTopHeadlineList = [];
   List<NewsArticlesModel> newsEverythingList = [];
-  final NewRepository newRepository ;
+  final BaseNewsRpository newRepository;
 
   getTopHeadline({String? category}) async {
     try {
-      newsTopHeadlineStates =RequestStatusEnums.loading;
+      newsTopHeadlineStates = RequestStatusEnums.loading;
       notifyListeners();
       newsTopHeadlineList = await newRepository.getTopHeadline(selectedCategory: selectedCategory);
 
@@ -37,13 +35,12 @@ class HomeController with ChangeNotifier {
       newsTopHeadlineStates = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
-    notifyListeners();
+    safeNotify();
   }
 
   getTopEverything({String? category}) async {
     try {
-
-      newsEverythingList =await newRepository.getTopEverything();
+      newsEverythingList = await newRepository.getTopEverything();
 
       everythingStatus = RequestStatusEnums.loaded;
       errorMessage = null;
@@ -51,12 +48,12 @@ class HomeController with ChangeNotifier {
       everythingStatus = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
-      notifyListeners();
+    safeNotify();
   }
 
   void updateSelectedCategory(String category) {
-    selectedCategory=category;
-    getTopHeadline(category:selectedCategory);
-    notifyListeners();
+    selectedCategory = category;
+    getTopHeadline(category: selectedCategory);
+    safeNotify();
   }
 }

@@ -54,4 +54,5 @@ class AppSize {
    ///radios
    static final double r12=12.r;
    static final double r20=20.r;
+   static final double r30=30.r;
 }
