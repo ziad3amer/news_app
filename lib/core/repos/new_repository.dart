@@ -7,7 +7,7 @@ import '../../../core/datasource/remote_data/api_config.dart';
 abstract class BaseNewsRpository
 {
   Future<List<NewsArticlesModel>> getTopHeadline({String? selectedCategory = "general"});
-  Future<List<NewsArticlesModel>>getTopEverything();
+  Future<List<NewsArticlesModel>>getTopEverything({String query="news"});
 }
 
 
@@ -28,10 +28,10 @@ class NewRepository extends BaseNewsRpository {
     return (result["articles"] as List).map((e) => NewsArticlesModel.fromJson(e)).toList();
   }
 
-  Future<List<NewsArticlesModel>>getTopEverything()  async{
+  Future<List<NewsArticlesModel>>getTopEverything({String query="news"})  async{
     Map<String, dynamic> result = await apiService.get(
       ApiConfig.everything,
-      params: {"q": "Ai"},
+      params: {"q": query},
     );
 
     return (result["articles"] as List)

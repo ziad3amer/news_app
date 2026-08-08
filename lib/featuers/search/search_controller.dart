@@ -5,10 +5,12 @@ import 'package:news_app/featuers/home/models/news_articles_model.dart';
 
 import '../../core/enums/request_status_enums.dart' show RequestStatusEnums;
 
-class SearchController extends ChangeNotifier with SafeNotify {
+class SearchScreenController extends ChangeNotifier with SafeNotify {
   RequestStatusEnums everythingStatus = RequestStatusEnums.loading;
 
-  SearchController(this.newsRpository);
+  SearchScreenController(this.newsRpository);
+
+  TextEditingController searchController = TextEditingController();
   final BaseNewsRpository newsRpository;
 
 
@@ -16,9 +18,9 @@ class SearchController extends ChangeNotifier with SafeNotify {
   List<NewsArticlesModel> newsEverythingList = [];
   String? errorMessage;
 
-  getTopEverything({String? category}) async {
+  getTopEverything() async {
     try {
-      newsEverythingList = await newsRpository.getTopEverything();
+      newsEverythingList = await newsRpository.getTopEverything(query: searchController.text);
 
       everythingStatus = RequestStatusEnums.loaded;
       errorMessage = null;
