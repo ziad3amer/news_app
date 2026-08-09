@@ -79,100 +79,103 @@ class _LoginScreenState extends State<LoginScreen> {
           padding:  EdgeInsets.all(AppSize.pw16),
           child: Form(
             key: _form,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Image.asset("assets/images/logo.png", height: AppSize.h45),
-                ),
-                SizedBox(height: AppSize.ph40),
-                Text(
-                  'Welcome to Newts',
-                  style: TextStyle(fontSize: AppSize.sp20, fontWeight: FontWeight.w700),
-                ),
-                SizedBox(height: AppSize.ph24),
-                CustomTextFormField(
-                  controller: emailController,
-                  hintText: 'ziad@gmail.com',
-                  title: 'Email',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please Enter your Email";
-                    }
-                    RegExp emailRegExp = RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+\-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-                    );
-                    if (!emailRegExp.hasMatch(value)) {
-                      return "Please Enter Valid Email";
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                SizedBox(height: AppSize.ph24),
-                CustomTextFormField(
-                  controller: passwordController,
-                  hintText: '*************',
-                  title: 'Password',
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please Enter your Password";
-                    }
-                    return null;
-                  },
-                ),
-                if (errorMessage != null)
-                  Padding(
-                    padding:  EdgeInsets.symmetric(vertical: AppSize.h8),
-                    child: Text(
-                      errorMessage!,
-                      style: TextStyle(color: Colors.red),
-                    ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: AppSize.h80,),
+                  Center(
+                    child: Image.asset("assets/images/logo.png", height: AppSize.h45),
                   ),
-                SizedBox(height: AppSize.ph24),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_form.currentState?.validate() ?? false) {
-                      login();
-                    }
-                  },
-                  child: isLoading
-                      ?CircularProgressIndicator()
-                      : Text("Sign In"),
-                ),
-                SizedBox(height: AppSize.ph24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don’t have an account ?",
-                      style: TextStyle(fontSize: AppSize.sp14),
-                    ),
-                    SizedBox(width: AppSize.pw8),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return RegisterScreen();
-                            },
-                          ),
-                        );
-                      },
+                  SizedBox(height: AppSize.ph40),
+                  Text(
+                    'Welcome to Newts',
+                    style: TextStyle(fontSize: AppSize.sp20, fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(height: AppSize.ph24),
+                  CustomTextFormField(
+                    controller: emailController,
+                    hintText: 'ziad@gmail.com',
+                    title: 'Email',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please Enter your Email";
+                      }
+                      RegExp emailRegExp = RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+\-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                      );
+                      if (!emailRegExp.hasMatch(value)) {
+                        return "Please Enter Valid Email";
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  SizedBox(height: AppSize.ph24),
+                  CustomTextFormField(
+                    controller: passwordController,
+                    hintText: '*************',
+                    title: 'Password',
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please Enter your Password";
+                      }
+                      return null;
+                    },
+                  ),
+                  if (errorMessage != null)
+                    Padding(
+                      padding:  EdgeInsets.symmetric(vertical: AppSize.h8),
                       child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontSize: AppSize.sp16,
-                        ),
+                        errorMessage!,
+                        style: TextStyle(color: Colors.red),
                       ),
                     ),
-                  ],
-                ),
-              ],
+                  SizedBox(height: AppSize.ph24),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_form.currentState?.validate() ?? false) {
+                        login();
+                      }
+                    },
+                    child: isLoading
+                        ?CircularProgressIndicator()
+                        : Text("Sign In"),
+                  ),
+                  SizedBox(height: AppSize.ph24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don’t have an account ?",
+                        style: TextStyle(fontSize: AppSize.sp14),
+                      ),
+                      SizedBox(width: AppSize.pw8),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return RegisterScreen();
+                              },
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: AppSize.sp16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

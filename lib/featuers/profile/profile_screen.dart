@@ -8,6 +8,7 @@ import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custtom_svg_picture.dart';
 import 'package:news_app/featuers/auth/login_screen.dart';
+import 'package:news_app/featuers/profile/bottom_sheet/profile_info_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import 'profile_controller.dart';
@@ -57,12 +58,22 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSize.ph8),
                     Text(
-                      PreferencesMangar().getString("user_email") ?? "",
+                      PreferencesMangar().getString("username") ?? "",
                       style: TextStyle(color: Colors.black, fontSize: AppSize.sp16),
                     ),
                     SizedBox(height: AppSize.ph16),
 
-                    _buildItem("Profile Info", "assets/images/Icon.svg", () {}),
+                    _buildItem("Profile Info", "assets/images/Icon.svg", () {
+                     showModalBottomSheet(
+                       context: context,
+                       isScrollControlled: true,
+                       backgroundColor: Colors.transparent,
+                       builder: (BuildContext context) {
+                         return ProfileInfoBottomSheet();
+                     }, ).then((value){
+                       controller.getUserData();
+                     });
+                    }),
                     _buildItem("Language", "assets/images/world.svg", () {}),
                     _buildItem("Country", "assets/images/alaam.svg", () {}),
                     _buildItem("Terms & Conditions", "assets/images/terms.svg", () {}),
@@ -70,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                       "Logout",
                       "assets/images/logout.svg",
                       () async{
-                       await PreferencesMangar().remove;
+                       await PreferencesMangar().clear;
                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
                          return LoginScreen();
                        }));

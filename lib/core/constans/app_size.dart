@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart' show SizeExtension;
 class AppSize {
    ///Hiegth
    static final double h1 = 1.h;
+   static final double h4 = 4.h;
    static final double h8 = 8.h;
    static final double h12 = 12.h;
    static final double h24 = 24.h;
@@ -21,6 +22,7 @@ class AppSize {
    static final double w12 =12.w;
    static final double w16 =16.w;
    static final double w24 =24.w;
+   static final double w32 =32.w;
    static final double w45 =45.w;
    static final double w145 =145.w;
    static final double w240 =240.w;
@@ -59,6 +61,7 @@ class AppSize {
 
    ///radios
    static final double r12=12.r;
+   static final double r16=16.r;
    static final double r18=18.r;
    static final double r20=20.r;
    static final double r30=30.r;

@@ -32,5 +32,8 @@ class PreferencesMangar {
   remove(String key) async {
     await _preferences.remove(key);
   }
+  clear() async {
+    await _preferences.clear();
+  }
 }
   
