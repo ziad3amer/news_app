@@ -42,6 +42,7 @@ dependencies:
   shimmer: ^3.0.0
   flutter_svg: ^2.3.0
   flutter_screenutil: ^5.9.3
+  image_picker: ^1.2.3
 
 
 dev_dependencies:
@@ -70,6 +71,7 @@ flutter:
   assets:
      - assets/images/
      - assets/images/onpording1.png
+     - assets/images/Thumbnail.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

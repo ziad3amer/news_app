@@ -5,6 +5,7 @@ class AppSize {
    static final double h1 = 1.h;
    static final double h8 = 8.h;
    static final double h12 = 12.h;
+   static final double h24 = 24.h;
    static final double h30 = 30.h;
    static final double h45 = 45.h;
    static final double h52 = 52.h;
@@ -19,6 +20,9 @@ class AppSize {
    static final double w4 =4.w;
    static final double w12 =12.w;
    static final double w16 =16.w;
+   static final double w24 =24.w;
+   static final double w45 =45.w;
+   static final double w145 =145.w;
    static final double w240 =240.w;
    static final double w400 =400.w;
 
@@ -50,9 +54,17 @@ class AppSize {
    static final double pw8=8.w;
    static final double pw12=12.w;
    static final double pw16=16.w;
+   static final double pw20=20.w;
+   static final double pw50=50.w;
 
    ///radios
    static final double r12=12.r;
+   static final double r18=18.r;
    static final double r20=20.r;
    static final double r30=30.r;
+   static final double r40=40.r;
+   static final double r45=45.r;
+   static final double r50=50.r;
+   static final double r60=60.r;
+   static final double r100=100.r;
 }
