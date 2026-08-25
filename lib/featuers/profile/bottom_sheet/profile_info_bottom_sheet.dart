@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
+import 'package:news_app/core/datasource/local_data/user_repository.dart';
+import 'package:news_app/core/models/user_model.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 
 class ProfileInfoBottomSheet extends StatefulWidget {
@@ -22,13 +24,17 @@ class _ProfileInfoBottomSheetState extends State<ProfileInfoBottomSheet> {
   }
 
   void _loudUserData() async {
-    emailController.text = PreferencesMangar().getString("user_email") ?? "";
-    usernameController.text = PreferencesMangar().getString("username") ?? "";
+    final UserModel user = UserRepository().getUser();
+    emailController.text = user.email ?? "";
+    usernameController.text = user.name ?? "";
   }
 
   void _saveUserData() async {
-    await PreferencesMangar().setString("user_email", emailController.text);
-    await PreferencesMangar().setString("username", usernameController.text);
+    await UserRepository().updateUser(
+      name: usernameController.text,
+      email: emailController.text,
+    );
+
     Navigator.pop(context);
   }
 

@@ -1,5 +1,6 @@
 import 'dart:io' show File;
 
+import 'package:country_picker/country_picker.dart' show showCountryPicker, Country;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart' show ImageSource;
@@ -19,15 +20,15 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ProfileController>(
-      create: (BuildContext context) => ProfileController(),
+      create: (BuildContext context) => ProfileController()..getUserData(),
       child: Scaffold(
         appBar: AppBar(title: Text("Profile"), centerTitle: true),
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSize.ph24, horizontal: AppSize.pw20),
-            child: Consumer<ProfileController>(
-              builder: (BuildContext context, ProfileController controller, Widget? child) {
-                return Column(
+        body: Padding(
+          padding: EdgeInsets.symmetric(vertical: AppSize.ph24, horizontal: AppSize.pw20),
+          child: Consumer<ProfileController>(
+            builder: (BuildContext context, ProfileController controller, Widget? child) {
+              return SingleChildScrollView(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Stack(
@@ -75,7 +76,16 @@ class ProfileScreen extends StatelessWidget {
                      });
                     }),
                     _buildItem("Language", "assets/images/world.svg", () {}),
-                    _buildItem("Country", "assets/images/alaam.svg", () {}),
+                    _buildItem(controller.countryName ?? "Country", "assets/images/alaam.svg", () {
+                      showCountryPicker(
+                        context: context,
+                        showPhoneCode: true,
+                        onSelect: (Country country) {
+                          controller.saveCountry(country);
+
+                        },
+                      );
+                    }),
                     _buildItem("Terms & Conditions", "assets/images/terms.svg", () {}),
                     _buildItem(
                       "Logout",
@@ -90,9 +100,9 @@ class ProfileScreen extends StatelessWidget {
                       withDivider: false,
                     ),
                   ],
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

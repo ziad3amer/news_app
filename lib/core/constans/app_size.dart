@@ -14,6 +14,7 @@ class AppSize {
    static final double h80 = 80.h;
    static final double h140 = 140.h;
    static final double h170 = 170.h;
+   static final double h200 = 200.h;
    static final double h240 = 240.h;
    static final double h340 = 340.h;
 
@@ -52,6 +53,7 @@ class AppSize {
 
 
    ///padding Width
+   static final double pw2=2.w;
    static final double pw6=6.w;
    static final double pw8=8.w;
    static final double pw12=12.w;
@@ -61,6 +63,7 @@ class AppSize {
 
    ///radios
    static final double r12=12.r;
+   static final double r4=4.r;
    static final double r16=16.r;
    static final double r18=18.r;
    static final double r20=20.r;

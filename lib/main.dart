@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
+import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/theme/light_theme.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:news_app/featuers/home/home_screen.dart';
@@ -13,6 +14,7 @@ void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferencesMangar().init();
   await ScreenUtil.ensureScreenSize();
+  UserRepository().init();
 
   runApp(const MyApp());
 }

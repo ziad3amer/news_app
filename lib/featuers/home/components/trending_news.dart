@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/enums/request_status_enums.dart';
 import 'package:news_app/core/extentions/data_time_extention.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
+import 'package:news_app/featuers/%20details/news_details_screen.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
 import 'trending_news_shimmer.dart';
@@ -53,84 +55,90 @@ class TrendingNews extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (BuildContext context, int index) {
                                 final model = controller.newsEverythingList[index];
-                                return Container(
-                                  width: 240,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadiusGeometry.circular(12),
-                                    child: Stack(
-                                      children: [
-                                        if (model.urlToImage != null)
-                                          CustomCachedNetworkImage(imagePath: model.urlToImage ?? "",width: 240, height: 140),
-
-                                        Positioned.fill(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Colors.black.withValues(alpha: 0.5),
-                                                  Colors.black.withValues(alpha: 0.7),
-                                                ],
+                                return GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                                      return NewsDetailsScreen(model:model);
+                                    },),);
+                                  },
+                                  child: SizedBox(
+                                    width: 240,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadiusGeometry.circular(AppSize.r12),
+                                      child: Stack(
+                                        children: [
+                                          if (model.urlToImage != null)
+                                            CustomCachedNetworkImage(imagePath: model.urlToImage ?? "",width: 240, height: 140),
+                                          Positioned.fill(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Colors.black.withValues(alpha: 0.5),
+                                                    Colors.black.withValues(alpha: 0.7),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Positioned(
-                                          bottom: 12,
-                                          right: 12,
-                                          left: 12,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                model.title,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 14,
-                                                  color: Color(0xFFFFFCFC),
+                                          Positioned(
+                                            bottom: 12,
+                                            right: 12,
+                                            left: 12,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  model.title,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14,
+                                                    color: Color(0xFFFFFCFC),
+                                                  ),
+                                                  maxLines: 2,
                                                 ),
-                                                maxLines: 2,
-                                              ),
-                                              SizedBox(height: 6),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Row(
-                                                      children: [
-                                                        CircleAvatar(
-                                                          backgroundImage: NetworkImage(model.urlToImage.toString()),
-                                                          radius: 10,
-                                                        ),
-                                                        SizedBox(width: 6),
-                                                        Expanded(
-                                                          child: Text(
-                                                            model.author ?? "",
-                                                            style: TextStyle(
-                                                              fontWeight: FontWeight.w400,
-                                                              fontSize: 12,
-                                                              color: Color(0xFFFFFCFC),
-                                                            ),
-                                                            maxLines: 1,
+                                                SizedBox(height: 6),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Row(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            backgroundImage: NetworkImage(model.urlToImage.toString()),
+                                                            radius: 10,
                                                           ),
-                                                        ),
-                                                      ],
+                                                          SizedBox(width: 6),
+                                                          Expanded(
+                                                            child: Text(
+                                                              model.author ?? "",
+                                                              style: TextStyle(
+                                                                fontWeight: FontWeight.w400,
+                                                                fontSize: 12,
+                                                                color: Color(0xFFFFFCFC),
+                                                              ),
+                                                              maxLines: 1,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                  model.publishedAt.formateDateTime(),
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.w400,
-                                                      fontSize: 16,
-                                                      color: Color(0xFFFFFCFC),
+                                                    Text(
+                                                    model.publishedAt.formateDateTime(),
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 16,
+                                                        color: Color(0xFFFFFCFC),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
