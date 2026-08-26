@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart' show ImageSource;
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
+import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custtom_svg_picture.dart';
 import 'package:news_app/featuers/auth/login_screen.dart';
@@ -59,42 +60,52 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSize.ph8),
                     Text(
-                      PreferencesMangar().getString("username") ?? "",
+                      controller.userName ?? "",
                       style: TextStyle(color: Colors.black, fontSize: AppSize.sp16),
                     ),
                     SizedBox(height: AppSize.ph16),
 
                     _buildItem("Profile Info", "assets/images/Icon.svg", () {
-                     showModalBottomSheet(
-                       context: context,
-                       isScrollControlled: true,
-                       backgroundColor: Colors.transparent,
-                       builder: (BuildContext context) {
-                         return ProfileInfoBottomSheet();
-                     }, ).then((value){
-                       controller.getUserData();
-                     });
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (BuildContext context) {
+                          return ProfileInfoBottomSheet();
+                        },
+                      ).then((value) {
+                        controller.getUserData();
+                      });
                     }),
                     _buildItem("Language", "assets/images/world.svg", () {}),
-                    _buildItem(controller.countryName ?? "Country", "assets/images/alaam.svg", () {
-                      showCountryPicker(
-                        context: context,
-                        showPhoneCode: true,
-                        onSelect: (Country country) {
-                          controller.saveCountry(country);
-
-                        },
-                      );
-                    }),
+                    _buildItem(
+                      controller.countryName ?? "Country",
+                      "assets/images/alaam.svg",
+                      () {
+                        showCountryPicker(
+                          context: context,
+                          showPhoneCode: true,
+                          onSelect: (Country country) {
+                            controller.saveCountry(country);
+                          },
+                        );
+                      },
+                    ),
                     _buildItem("Terms & Conditions", "assets/images/terms.svg", () {}),
                     _buildItem(
                       "Logout",
                       "assets/images/logout.svg",
-                      () async{
-                       await PreferencesMangar().clear;
-                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
-                         return LoginScreen();
-                       }));
+                      () async {
+                        await UserRepository().deleteUser();
+                        await PreferencesMangar().clear();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return LoginScreen();
+                            },
+                          ),
+                        );
                       },
                       color: LightColor.primaryColor,
                       withDivider: false,
@@ -165,7 +176,11 @@ class ProfileScreen extends StatelessWidget {
           contentPadding: EdgeInsets.zero,
           title: Text(
             title,
-            style: TextStyle(color: color, fontSize: AppSize.sp16, fontWeight: FontWeight.w400),
+            style: TextStyle(
+              color: color,
+              fontSize: AppSize.sp16,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           leading: CusttomSvgPicture.withColorFilter(path: path),
           trailing: CusttomSvgPicture.withColorFilter(

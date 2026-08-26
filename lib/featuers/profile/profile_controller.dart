@@ -14,28 +14,19 @@ class ProfileController extends ChangeNotifier with SafeNotify {
   String? countryName;
   String? countryCode;
 
-
-
-
-
   void pickImage(ImageSource source) async {
     selectedImage = await ImagePicker().pickImage(source: source);
     safeNotify();
   }
-
-  void getUserData() {
+   getUserData() {
     final UserModel? user = UserRepository().getUser();
     userName = user?.name??"";
     countryName = user?.countryName??"";
     countryCode = user?.countryCode??"";
-    // userName = PreferencesMangar().getString("username");
-    // countryName = PreferencesMangar().getString("country_name");
-    // countryCode = PreferencesMangar().getString("country_code");
     safeNotify();
   }
 
   void saveCountry(Country selectedCountry)async {
-
     await UserRepository().updateUser(
       countryName: selectedCountry.name,
       countryCode: selectedCountry.countryCode,
