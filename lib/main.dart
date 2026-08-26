@@ -15,7 +15,7 @@ void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   await PreferencesMangar().init();
-  await UserRepository().init();
+   UserRepository().init();
   await BookmarkRepository().init();
 
   runApp(const MyApp());
