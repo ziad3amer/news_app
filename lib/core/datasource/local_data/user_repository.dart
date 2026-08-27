@@ -19,7 +19,7 @@ class UserRepository {
   }
 
   init() async {
-    Hive.initFlutter();
+    await  Hive.initFlutter();
 
     if (!Hive.isAdapterRegistered(0)) {
       Hive.registerAdapter(UserModelAdapter());

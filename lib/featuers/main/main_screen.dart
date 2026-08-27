@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/featuers/bookmark/bookmark_screen.dart';
+import 'package:news_app/featuers/bookmark/data/bookmark_repository.dart';
 import 'package:news_app/featuers/home/home_screen.dart';
 import 'package:news_app/featuers/profile/profile_screen.dart';
 import 'package:news_app/featuers/search/search_screen.dart';
@@ -13,6 +14,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+  int _bookmarksCount = 0;
 
   final List<Widget> _screens = [
     HomeScreen(),
@@ -20,6 +22,29 @@ class _MainScreenState extends State<MainScreen> {
     BookmarkScreen(),
     ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _updateBookmarksCount();
+  }
+
+  void _updateBookmarksCount() {
+    setState(() {
+      _bookmarksCount = BookmarkRepository().bookMarkCount();
+    });
+  }
+
+  Widget _buildBookmarkIcon() {
+    if (_bookmarksCount == 0) {
+      return const Icon(Icons.bookmark_border);
+    }
+    return Badge(
+      label: Text(_bookmarksCount.toString(),),
+      child: const Icon(Icons.bookmark_border),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +55,9 @@ class _MainScreenState extends State<MainScreen> {
           setState(() {
             _currentIndex = index;
           });
+          if(_currentIndex==2){
+            _updateBookmarksCount();
+          }
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),

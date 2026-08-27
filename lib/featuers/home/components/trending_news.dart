@@ -5,7 +5,7 @@ import 'package:news_app/core/extentions/data_time_extention.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
 import 'package:news_app/featuers/%20details/news_details_screen.dart';
-import 'package:news_app/featuers/bookmark/model/bookmark_button.dart';
+import 'package:news_app/core/widgets/bookmark_button.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
 import 'trending_news_shimmer.dart';

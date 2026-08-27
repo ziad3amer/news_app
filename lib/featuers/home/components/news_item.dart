@@ -6,7 +6,7 @@ import 'package:news_app/core/extentions/data_time_extention.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
 import 'package:news_app/core/widgets/custtom_svg_picture.dart';
 import 'package:news_app/featuers/%20details/news_details_screen.dart';
-import 'package:news_app/featuers/bookmark/model/bookmark_button.dart';
+import 'package:news_app/core/widgets/bookmark_button.dart';
 import 'package:news_app/featuers/home/models/news_articles_model.dart';
 
 class NewsItem extends StatelessWidget {
