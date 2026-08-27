@@ -4,22 +4,22 @@ import 'package:news_app/featuers/bookmark/model/bookmark_model.dart';
 import 'package:news_app/featuers/home/models/news_articles_model.dart';
 
 class BookmarkRepository {
-  //this is single tone class
+  //this is singleton class
   BookmarkRepository._internal();
-
   static final BookmarkRepository _instance = BookmarkRepository._internal();
-
   factory BookmarkRepository() => _instance;
+
+
 
   Box<BookmarkModel>? _bookmarkBox;
 
   Box<BookmarkModel> get bookmarkBox {
     if (_bookmarkBox == null) {
-      throw Exception("bookmarkBox is already initialized");
+      throw Exception('bookmarkBox is not initialized');
     }
     return _bookmarkBox!;
   }
-
+//دي Method مسؤولة عن فتح الـ Hive Box./
   Future<void> init() async {
     _bookmarkBox = await Hive.openBox<BookmarkModel>(Constants.bookmarkBox);
   }
@@ -27,6 +27,10 @@ class BookmarkRepository {
   ///Add a news artical to bookmark
   ///use artical url as key
   Future<void> addBookmark(NewsArticlesModel article) async {
+    ///هنا بنحول الـ Article إلى Bookmark
+    /// NewsArticlesModel
+    ///        ↓
+    /// BookmarkModel
     final bookmark = BookmarkModel(
       author: article.author,
       title: article.title,
@@ -64,6 +68,7 @@ class BookmarkRepository {
 
   ///Toggle BookMark
   ///3ayez sharh tany le el function de
+  /// لو الحاجة ON خليها OFF، ولو OFF خليها ON.
   Future<bool> toggleBookMark(NewsArticlesModel article) async {
     if (isBookMarked(article.url)) {
       await removeBookmark(article.url!);
@@ -75,19 +80,23 @@ class BookmarkRepository {
   }
 
   ///get total bookmark count
+  ///ي بتجيب عدد الـ Bookmarks.
   int bookMarkCount() {
     return bookmarkBox.length;
   }
 
   ///clear all bookmark
   Future<void> clearAllBookmarks() async {
-    await bookmarkBox.compact();
+    await bookmarkBox.clear();
   }
 
   ///search bookmark by title or description
   List<BookmarkModel> searchBookmark(String query) {
     if (query.isEmpty) return getBookMark();
     final lowerCaseQuery = query.toLowerCase();
+
+    ///   دي معناها:
+    // لف على كل الـ Bookmarks واختار اللي يحقق شرط معين
     return bookmarkBox.values.where((bookmark) {
       final titleMatch = bookmark.title?.toLowerCase().contains(lowerCaseQuery)??false;
       final descriptionMatch =
