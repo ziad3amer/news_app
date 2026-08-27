@@ -5,17 +5,13 @@ import 'package:news_app/featuers/home/models/news_articles_model.dart';
 class BookmarkButton extends StatefulWidget {
   final NewsArticlesModel article;
   final double size;
-  final Color? activeColor;
-  final Color? inactiveColor;
-  final VoidCallback? onToggle;
+
 
   const BookmarkButton({
     super.key,
     required this.article,
     this.size = 24.0,
-    this.activeColor,
-    this.inactiveColor,
-    this.onToggle,
+
   });
 
   @override
@@ -51,7 +47,6 @@ class _BookmarkButtonState extends State<BookmarkButton> {
         _isAnimating = false;
       });
 
-      widget.onToggle?.call();
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -83,9 +78,6 @@ class _BookmarkButtonState extends State<BookmarkButton> {
 
   @override
   Widget build(BuildContext context) {
-    final activeColor =
-        widget.activeColor ?? Theme.of(context).primaryColor;
-    final inactiveColor = widget.inactiveColor ?? Colors.grey;
 
     return GestureDetector(
       onTap: _toggleBookmark,
@@ -104,7 +96,7 @@ class _BookmarkButtonState extends State<BookmarkButton> {
             _isBookmarked ? Icons.bookmark : Icons.bookmark_border,
             key: ValueKey<bool>(_isBookmarked),
             size: widget.size,
-            color: _isBookmarked ? activeColor : inactiveColor,
+            color: _isBookmarked ?  Theme.of(context).primaryColor :  Colors.grey,
           ),
         ),
       ),

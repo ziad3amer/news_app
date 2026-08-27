@@ -90,8 +90,6 @@ class TrendingNews extends StatelessWidget {
                                             child: BookmarkButton(
                                             article:model,
                                             size: 24,
-                                            activeColor:Colors.white,
-                                            inactiveColor: Colors.white,
                                             ),
                                           ),
 

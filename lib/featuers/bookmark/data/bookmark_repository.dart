@@ -21,6 +21,7 @@ class BookmarkRepository {
   }
 //دي Method مسؤولة عن فتح الـ Hive Box./
   Future<void> init() async {
+    Hive.registerAdapter(BookmarkModelAdapter());
     _bookmarkBox = await Hive.openBox<BookmarkModel>(Constants.bookmarkBox);
   }
 
