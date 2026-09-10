@@ -2,6 +2,7 @@ import 'dart:io' show File;
 
 import 'package:country_picker/country_picker.dart' show showCountryPicker, Country;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart' show ImageSource;
 import 'package:news_app/core/constans/app_size.dart';
@@ -11,6 +12,7 @@ import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custtom_svg_picture.dart';
 import 'package:news_app/featuers/auth/login_screen.dart';
 import 'package:news_app/featuers/profile/bottom_sheet/profile_info_bottom_sheet.dart';
+import 'package:news_app/featuers/profile/cubit/profile_cubit.dart';
 import 'package:provider/provider.dart';
 
 import 'profile_controller.dart';
@@ -20,14 +22,14 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ProfileController>(
-      create: (BuildContext context) => ProfileController()..getUserData(),
+    return BlocProvider<ProfileCubit>(
+      create: (BuildContext context) => ProfileCubit()..getUserData(),
       child: Scaffold(
         appBar: AppBar(title: Text("Profile"), centerTitle: true),
         body: Padding(
           padding: EdgeInsets.symmetric(vertical: AppSize.ph24, horizontal: AppSize.pw20),
-          child: Consumer<ProfileController>(
-            builder: (BuildContext context, ProfileController controller, Widget? child) {
+          child: BlocBuilder<ProfileCubit,ProfileState>(
+            builder: ( context,state) {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,9 +38,9 @@ class ProfileScreen extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       children: [
                         CircleAvatar(
-                          backgroundImage: controller.selectedImage == null
+                          backgroundImage: state.selectedImage == null
                               ? AssetImage("assets/images/Thumbnail.png")
-                              : FileImage(File(controller.selectedImage!.path)),
+                              : FileImage(File(state.selectedImage!.path)),
                           radius: AppSize.r60,
                           backgroundColor: Colors.transparent,
                         ),
@@ -60,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSize.ph8),
                     Text(
-                      controller.userName ?? "",
+                      state.userName ?? "",
                       style: TextStyle(color: Colors.black, fontSize: AppSize.sp16),
                     ),
                     SizedBox(height: AppSize.ph16),
@@ -74,19 +76,19 @@ class ProfileScreen extends StatelessWidget {
                           return ProfileInfoBottomSheet();
                         },
                       ).then((value) {
-                        controller.getUserData();
+                        context.read<ProfileCubit>().getUserData();
                       });
                     }),
                     _buildItem("Language", "assets/images/world.svg", () {}),
                     _buildItem(
-                      controller.countryName ?? "Country",
+                      state.countryName ?? "Country",
                       "assets/images/alaam.svg",
                       () {
                         showCountryPicker(
                           context: context,
                           showPhoneCode: true,
                           onSelect: (Country country) {
-                            controller.saveCountry(country);
+                            context.read<ProfileCubit>().saveCountry(country);
                           },
                         );
                       },
@@ -121,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void showImageSourceDialog(BuildContext context) {
-    final controller = context.read<ProfileController>();
+    final controller = context.read<ProfileCubit>();
     showDialog(
       context: context,
       builder: (BuildContext context) {

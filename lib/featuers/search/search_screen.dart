@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider, BlocBuilder;
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/featuers/%20details/news_details_screen.dart';
+import 'package:news_app/featuers/search/cubit/search_cubit.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/repos/new_repository.dart';
@@ -12,22 +14,22 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return BlocProvider<SearchCubit>(
       create: (BuildContext context) {
-        return SearchScreenController(NewRepository(ApiService()));
+        return SearchCubit(NewRepository(ApiService()));
       },
       child: Scaffold(
         appBar: AppBar(title: Text("Search"), centerTitle: true),
         body: Padding(
           padding: EdgeInsets.all(AppSize.pw16),
-          child: Consumer<SearchScreenController>(
-            builder: (BuildContext context, SearchScreenController controller, Widget? child) {
+          child: BlocBuilder<SearchCubit,SearchState>(
+            builder: ( context,state) {
               return Column(
                 children: [
                   TextField(
-                    controller: controller.searchController,
+                    controller: context.read<SearchCubit>().searchController,
                     onChanged: (value) {
-                      controller.getTopEverything();
+                      context.read<SearchCubit>().getTopEverything();
                     },
                     decoration: InputDecoration(
                       hintText: "Search",
@@ -36,10 +38,10 @@ class SearchScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView.separated(
-                      itemCount: controller.newsEverythingList.length,
+                      itemCount: state.newsEverythingList.length,
                       padding: EdgeInsets.zero,
                       itemBuilder: (BuildContext context, int index) {
-                        final model = controller.newsEverythingList[index];
+                        final model = state.newsEverythingList[index];
 
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
