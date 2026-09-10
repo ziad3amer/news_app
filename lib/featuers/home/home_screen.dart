@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/repos/new_repository.dart';
 
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HomeController>(
+    return BlocProvider(create: create)<HomeController>(
       create: (BuildContext context) => HomeController(NewRepository(ApiService())),
       child: Consumer<HomeController>(
         builder: (BuildContext context, controller, Widget? child) {
