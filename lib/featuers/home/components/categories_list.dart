@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/featuers/home/categories_screen.dart';
 import 'package:news_app/featuers/home/components/view_all_component.dart';
+import 'package:news_app/featuers/home/cubit/home_cubit.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +14,8 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Consumer<HomeController>(
-        builder: (BuildContext context, controller, Widget? child) {
+      child: BlocBuilder<HomeCubit,HomeState>(
+        builder: (context, state) {
           return Column(
             children: [
               ViewAllComponent(
@@ -24,8 +26,8 @@ class CategoriesList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return ChangeNotifierProvider.value(
-                        value: controller,
+                        return BlocProvider.value(
+                        value: context.read<HomeCubit>(),
                         child: CategoriesScreen());
                       },
                     ),
@@ -41,10 +43,10 @@ class CategoriesList extends StatelessWidget {
                     itemCount: categories.length,
                     padding: EdgeInsets.only(right: AppSize.pw16),
                     itemBuilder: (BuildContext context, int index) {
-                      bool isSelected = controller.selectedCategory == categories[index];
+                      bool isSelected = state.selectedCategory == categories[index];
                       return GestureDetector(
                         onTap: () {
-                          controller.updateSelectedCategory(categories[index]);
+                          context.read<HomeCubit>().updateSelectedCategory(categories[index]);
                         },
                         child: IntrinsicWidth(
                           child: Column(

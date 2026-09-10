@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider, BlocBuilder;
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
 import 'package:news_app/featuers/auth/login_screen.dart';
 import 'package:news_app/featuers/models/onboarding_model.dart';
 import 'package:news_app/featuers/onpording/controller/onboarding_controller.dart';
+import 'package:news_app/featuers/onpording/cubit/onpording_cubit.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -24,44 +26,39 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => OnboardingController(),
+    return BlocProvider(
+      create: (BuildContext context) => OnpordingCubit(),
       child: Builder(
         builder: (BuildContext context) {
-          final controller = context.read<OnboardingController>();
+          final controller = context.read<OnpordingCubit>();
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Color(0xFFf5f5f5),
               actions: [
-                Consumer<OnboardingController>(
-                  builder:
-                      (
-                        BuildContext context,
-                        OnboardingController value,
-                        Widget? child,
-                      ) {
-                        return value.isLastPage
-                            ? Container()
-                            : TextButton(
-                                onPressed: () {
-                                  _onFinish(context);
-                                },
-                                child: Text(
-                                  "Skip",
-                                  style: TextStyle(
-                                    fontSize:AppSize.sp16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                      },
+                BlocBuilder<OnpordingCubit, OnbordindState>(
+                  builder: ( context, state) {
+                    return state.isLastPage
+                        ? Container()
+                        : TextButton(
+                            onPressed: () {
+                              _onFinish(context);
+                            },
+                            child: Text(
+                              "Skip",
+                              style: TextStyle(
+                                fontSize: AppSize.sp16,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                  },
                 ),
               ],
             ),
             body: Padding(
-              padding:  EdgeInsets.symmetric(
+              padding: EdgeInsets.symmetric(
                 vertical: AppSize.h30,
-                horizontal:AppSize.w16,
+                horizontal: AppSize.w16,
               ),
               child: Column(
                 children: [
@@ -69,9 +66,7 @@ class OnboardingScreen extends StatelessWidget {
                     child: PageView.builder(
                       controller: controller.pageController,
                       onPageChanged: (int index) {
-                        context.read<OnboardingController>().onPageChange(
-                          index,
-                        );
+                        context.read<OnpordingCubit>().onPageChange(index);
                         //Provider.of<OnboardingController>(context, listen: false).onPageChange(index);
                       },
                       itemCount: OnboardingModel.OnboardingList.length,
@@ -86,11 +81,11 @@ class OnboardingScreen extends StatelessWidget {
                               model.title,
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
-                                fontSize:AppSize.sp20,
+                                fontSize: AppSize.sp20,
                                 color: Color(0xFF4E4B66),
                               ),
                             ),
-                            SizedBox(height:AppSize.ph12),
+                            SizedBox(height: AppSize.ph12),
                             Text(
                               model.description,
                               textAlign: TextAlign.center,
@@ -106,22 +101,22 @@ class OnboardingScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  Consumer<OnboardingController>(
-                    builder: (BuildContext context, value, Widget? child) {
+                  BlocBuilder<OnpordingCubit,OnbordindState>(
+                    builder: ( context,state) {
                       return SmoothPageIndicator(
-                        controller: value.pageController,
+                        controller: context.read<OnpordingCubit>().pageController,
                         count: 3,
                         effect: SwapEffect(activeDotColor: Color(0xFFC53030)),
                       );
                     },
                   ),
 
-                  SizedBox(height:AppSize.ph112),
-                  Consumer<OnboardingController>(
-                    builder: (BuildContext context, value, Widget? child) {
+                  SizedBox(height: AppSize.ph112),
+                  BlocBuilder<OnpordingCubit,OnbordindState>(
+                    builder: ( context, state) {
                       return ElevatedButton(
                         onPressed: () {
-                          if (!value.isLastPage) {
+                          if (!state.isLastPage) {
                             controller.pageController.nextPage(
                               duration: Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
@@ -130,7 +125,7 @@ class OnboardingScreen extends StatelessWidget {
                             _onFinish(context);
                           }
                         },
-                        child: Text(value.isLastPage ? "Get Started" : "Next"),
+                        child: Text(state.isLastPage ? "Get Started" : "Next"),
                       );
                     },
                   ),

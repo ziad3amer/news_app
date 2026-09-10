@@ -12,7 +12,6 @@ abstract class BaseNewsRpository
 
 
 
-
 class NewRepository extends BaseNewsRpository {
 
 

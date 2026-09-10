@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/enums/request_status_enums.dart';
 import 'package:news_app/core/extentions/data_time_extention.dart';
@@ -6,6 +7,7 @@ import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
 import 'package:news_app/featuers/%20details/news_details_screen.dart';
 import 'package:news_app/core/widgets/bookmark_button.dart';
+import 'package:news_app/featuers/home/cubit/home_cubit.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
 import 'trending_news_shimmer.dart';
@@ -39,23 +41,23 @@ class TrendingNews extends StatelessWidget {
                   SizedBox(height: 12),
                   SizedBox(
                     height: 140,
-                    child: Consumer<HomeController>(
-                      builder: (BuildContext context, controller, Widget? child) {
-                        switch (controller.everythingStatus) {
+                    child: BlocBuilder<HomeCubit,HomeState>(
+                      builder: (context, state) {
+                        switch (state.everythingStatus) {
                           case RequestStatusEnums.loading:
                             return TrendingNewsShimmer();
                           case RequestStatusEnums.error:
-                            return Center(child: Text(controller.errorMessage!));
+                            return Center(child: Text(state.errorMessage!));
                           case RequestStatusEnums.loaded:
                             return ListView.separated(
                               padding: EdgeInsets.only(left: 16),
                               separatorBuilder: (BuildContext context, int index) {
                                 return SizedBox(width: 12);
                               },
-                              itemCount: controller.newsEverythingList.take(6).length,
+                              itemCount: state.newsEverythingList.take(6).length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (BuildContext context, int index) {
-                                final model = controller.newsEverythingList[index];
+                                final model = state.newsEverythingList[index];
                                 return GestureDetector(
                                   onTap: (){
                                     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
