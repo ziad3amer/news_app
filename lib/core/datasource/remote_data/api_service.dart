@@ -50,6 +50,7 @@ class ApiService extends BaseApiService {
       final http.Response response = await http.post(
         url,
         headers: {"accept": "application/json", "Content-Type": "application/json"},
+        body: jsonEncode(body),
       );
       final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
       if (response.statusCode >= 200 && response.statusCode < 300) {

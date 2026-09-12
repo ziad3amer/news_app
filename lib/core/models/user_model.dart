@@ -18,13 +18,19 @@ class UserModel {
   @HiveField(4)
   String? countryCode;
 
+  String? accessToken ;
+  String? refreshToken ;
+
+
   //this is constructor;
   UserModel({
     required this.name,
-    required this.email,
+     this.email,
     this.password,
     this.countryName,
     this.countryCode,
+    this.accessToken,
+    this.refreshToken,
   });
 
     Map<String, dynamic> toMap() {
@@ -44,6 +50,13 @@ class UserModel {
       password: map['password'] as String,
       countryName: map['countryName'] as String,
       countryCode: map['countryCode'] as String,
+    );
+  }
+  factory UserModel.fromAuthResponseJson(Map<String, dynamic> json , String username) {
+    return UserModel(
+      name: username,
+      accessToken: json['accessToken'] ,
+      refreshToken: json['refreshToken'] ,
     );
   }
 
