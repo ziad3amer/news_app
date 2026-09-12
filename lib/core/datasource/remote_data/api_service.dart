@@ -1,27 +1,63 @@
-import 'dart:convert' show jsonDecode;
+import 'dart:convert' show jsonDecode, jsonEncode;
 import 'package:http/http.dart' as http;
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 
+abstract class BaseApiService {
+  Future<dynamic> get(String endpoint, String baseUrl, {Map<String, dynamic>? params});
 
-abstract class BaseApiService
-{
-  Future<dynamic> get(String endpoint, {Map<String, dynamic>? params});
-
+  Future<dynamic> Post(String endpoint, String baseUrl, {Map<String, dynamic>? body});
 }
+
 class ApiService extends BaseApiService {
-
-
   @override
-  Future<dynamic> get(String endpoint, {Map<String, dynamic>? params}) async {
+  Future<dynamic> get(
+    String endpoint,
+    String baseUrl, {
+    Map<String, dynamic>? params,
+  }) async {
     var url = Uri.http(
-      ApiConfig.baseUrl,
+      baseUrl,
       //this is qaure parameters
       "v2/$endpoint",
       {"apiKey": ApiConfig.apiKey, ...?params},
     );
     print(url);
     try {
-      final http.Response response = await http.get(url);
+      final http.Response response = await http.get(
+          url,
+        headers: {"accept": "application/json"},
+
+      );
+      return jsonDecode(response.body) as Map<String, dynamic>;
+    } catch (e) {
+      throw Exception("Field To loud Data");
+    }
+  }
+
+  @override
+  Future<dynamic> Post(
+    String endpoint,
+    String baseUrl, {
+    Map<String, dynamic>? body,
+  }) async {
+    var url = Uri.https(
+      baseUrl,
+      //this is qaure parameters
+      endpoint,
+    );
+    print(url);
+    try {
+      final http.Response response = await http.post(
+          url,
+        headers: {
+            "accept": "application/json",
+          "Content-Type": "application/json",
+
+        },
+        body: jsonEncode(body),
+
+
+      );
       return jsonDecode(response.body) as Map<String, dynamic>;
     } catch (e) {
       throw Exception("Field To loud Data");

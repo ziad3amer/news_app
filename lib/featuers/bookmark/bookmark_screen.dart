@@ -51,6 +51,7 @@ class BookmarkScreen extends StatelessWidget {
         body: BlocBuilder<BookmarkCubit,BookmarkState>(
           builder: (context, State) {
             switch (State.bookmarkStatus) {
+              case RequestStatusEnums.initial:
               case RequestStatusEnums.loading:
                 return const Center(child: CircularProgressIndicator());
 

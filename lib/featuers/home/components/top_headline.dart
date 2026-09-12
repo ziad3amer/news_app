@@ -16,6 +16,7 @@ class TopHeadline extends StatelessWidget {
     return BlocBuilder<HomeCubit,HomeState>(
       builder: (context, state) {
         switch (state.newsTopHeadlineStates) {
+          case RequestStatusEnums.initial:
           case RequestStatusEnums.loading:
             return TopHeadlineShimmer();
           case RequestStatusEnums.error:

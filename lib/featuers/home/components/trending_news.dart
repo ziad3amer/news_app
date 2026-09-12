@@ -44,6 +44,7 @@ class TrendingNews extends StatelessWidget {
                     child: BlocBuilder<HomeCubit,HomeState>(
                       builder: (context, state) {
                         switch (state.everythingStatus) {
+                          case RequestStatusEnums.initial:
                           case RequestStatusEnums.loading:
                             return TrendingNewsShimmer();
                           case RequestStatusEnums.error:
