@@ -3,8 +3,8 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
-import 'package:news_app/featuers/bookmark/model/bookmark_model.dart';
 import 'package:news_app/core/models/user_model.dart';
+import 'package:news_app/featuers/bookmark/model/bookmark_model.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {

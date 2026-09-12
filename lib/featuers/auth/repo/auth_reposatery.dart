@@ -18,6 +18,7 @@ class AuthRepository {
         "password": password,
         "expiresIn": 30,
       },
+
     );
    UserModel model = UserModel.fromAuthResponseJson(response, username);
    await _saveUser(model);

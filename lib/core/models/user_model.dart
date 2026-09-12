@@ -18,8 +18,12 @@ class UserModel {
   @HiveField(4)
   String? countryCode;
 
-  String? accessToken ;
-  String? refreshToken ;
+  @HiveField(5)
+  String? accessToken;
+
+  @HiveField(6)
+  String? refreshToken;
+
 
 
   //this is constructor;
