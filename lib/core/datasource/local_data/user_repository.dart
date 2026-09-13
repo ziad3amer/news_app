@@ -81,7 +81,7 @@ class UserRepository {
     required String password,
   }) async {
     final user = getUser();
-    if (user != null) {
+    if (user != null && user.email == email) {
       return "User Already Exists Please Login";
     }
     final newUser = UserModel(name: name, email: email, password: password);

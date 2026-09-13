@@ -12,71 +12,19 @@ import 'package:news_app/featuers/main/main_screen.dart';
 import 'register_screen.dart';
 import 'repo/auth_reposatery.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
 
   bool isVisible = false;
+
   // String? errorMessage;
-  // bool isLoading = false;
-
-  @override
-  void dispose() {
-    super.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-  }
-
   final GlobalKey<FormState> _form = GlobalKey();
 
   // void login() async {
-  //   setState(() {
-  //     errorMessage = null;
-  //     isLoading = true;
-  //   });
-  //
-  //   await Future.delayed(Duration(seconds: 3));
-  //
-  //   // final savedEmail = PreferencesMangar().getString("user_email");
-  //   // final savedPassword = PreferencesMangar().getString("user_password");
-  //
-  //   final String? error = UserRepository().login(
-  //     usernameController.text,
-  //     passwordController.text,
-  //   );
-  //
-  //   if (error != null) {
-  //     setState(() {
-  //       errorMessage = error;
-  //       isLoading = false;
-  //     });
-  //     return;
-  //   }
-  //
-  //   await PreferencesMangar().setBoll("is_logged_in", true);
-  //
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (BuildContext context) {
-  //         return MainScreen();
-  //       },
-  //     ),
-  //   );
-  //   setState(() {
-  //     errorMessage = null;
-  //     isLoading = false;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
