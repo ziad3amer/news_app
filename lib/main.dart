@@ -11,6 +11,8 @@ import 'package:news_app/featuers/onpording/onboarding_screen.dart';
 import 'package:news_app/featuers/splash/splash_screen.dart';
 import 'package:provider/provider.dart' show ChangeNotifierProvider;
 
+import 'core/datasource/remote_data/dia_example.dart' show DiaExample;
+
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
@@ -19,6 +21,10 @@ void main()async {
   //  الاتنين اللي تحت دووول واخدين await المفروض
   await UserRepository().init();
   await BookmarkRepository().init();
+
+
+
+  DiaExample.exampleGetRequest();
 
   runApp(const MyApp());
 }
