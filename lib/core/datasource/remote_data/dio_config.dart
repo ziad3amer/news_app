@@ -1,9 +1,12 @@
 //الـ Config = Configuration يعني ملف بنحط فيه الإعدادات والثوابت الخاصة بالـ API أو التطبيق.
 import 'package:dio/dio.dart' show Dio, BaseOptions;
+import 'package:dio/src/dio_mixin.dart';
+
+import 'interceptor/login_interceptor.dart';
 
 class DioConfig {
   static Dio createDio(){
-    return Dio(
+    final dio= Dio(
       BaseOptions(
         baseUrl: "https://dummyjson.com/",
         connectTimeout: Duration(seconds: 30),
@@ -13,5 +16,8 @@ class DioConfig {
         },
       )
     );
+    dio.interceptors.add(LoggingInterceptor());
+
+    return dio;
   }
 }
