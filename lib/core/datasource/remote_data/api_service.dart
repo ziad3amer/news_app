@@ -69,10 +69,6 @@ class ApiService extends BaseApiService {
       baseUrl,
       endpoint,
     );
-
-    print("POST URL: $url");
-    print("POST BODY: $body");
-
     try {
       final http.Response response = await http.post(
         url,
@@ -82,9 +78,6 @@ class ApiService extends BaseApiService {
         },
         body: jsonEncode(body),
       );
-
-      print("POST STATUS CODE: ${response.statusCode}");
-      print("POST RESPONSE: ${response.body}");
 
       final responseBody =
       jsonDecode(response.body) as Map<String, dynamic>;

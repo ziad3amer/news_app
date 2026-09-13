@@ -45,6 +45,8 @@ class AuthCubit extends Cubit<AuthState> {
         errorMessage: error,
         status: RequestStatusEnums.error,
       ));
+      PreferencesMangar().getBoll("is_logged_in") ?? false;
+
     }
     await PreferencesMangar().setBoll("is_logged_in", true);
     emit(state.copyWith(status: RequestStatusEnums.loaded, errorMessage: null));

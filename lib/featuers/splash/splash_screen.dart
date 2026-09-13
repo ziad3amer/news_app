@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
+import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/featuers/home/home_screen.dart';
 import 'package:news_app/featuers/auth/login_screen.dart';
 import 'package:news_app/featuers/main/main_screen.dart';
@@ -26,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
         PreferencesMangar().getBoll("onboarding_complete") ?? false;
     final bool isLoggedIn =
         PreferencesMangar().getBoll("is_logged_in") ?? false;
+    final hasAccessToken =UserRepository().getUser()?.accessToken!=null;
     if (!mounted) return;
     if (!onboardingComplete) {
       Navigator.pushReplacement(
@@ -36,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           },
         ),
       );
-    } else if (!isLoggedIn) {
+    } else if (!isLoggedIn && !hasAccessToken) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
