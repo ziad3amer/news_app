@@ -10,9 +10,7 @@ import '../../local_data/user_repository.dart';
 class AuthInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final token = UserRepository()
-        .getUser()
-        ?.token;
+    final token = UserRepository().getUser()?.token;
 
     if (token != null) {
       options.headers["Authorization"] = "Bearer $token";
@@ -30,12 +28,16 @@ class AuthInterceptor extends Interceptor {
       PreferencesMangar().clear();
       Navigator.of(context).pushNamedAndRemoveUntil(
         MaterialPageRoute(
-            builder: (BuildContext context) {
-          return LoginScreen();
-        }
-        ) as String,
-            (route) => false,
+              builder: (BuildContext context) {
+                return LoginScreen();
+              },
+            )
+            as String,
+        (route) => false,
       );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Session Expired")));
     }
     handler.next(err);
   }
