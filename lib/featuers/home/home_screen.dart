@@ -11,13 +11,15 @@ import 'package:news_app/featuers/home/cubit/home_cubit.dart';
 import 'package:news_app/featuers/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/datasource/remote_data/news/news_api_service.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => HomeCubit(NewRepository(ApiService())),
+      create: (BuildContext context) => HomeCubit(NewRepository(NewsApiService())),
       child: Scaffold(
         body: CustomScrollView(
           slivers: [TrendingNews(), CategoriesList(), TopHeadline()],

@@ -1,5 +1,5 @@
 class ApiConfig {
-  static const newsBaseUrl ="newsapi.org";
+  static const newsBaseUrl ="https://newsapi.org/v2/";
   static const authBaseUrl ="dummyjson.com";
   static const String apiKey = "c9303511c0c243a4b7766d2b6c3b4be5";
   ///EndPoints
