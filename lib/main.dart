@@ -13,6 +13,9 @@ import 'package:provider/provider.dart' show ChangeNotifierProvider;
 
 import 'core/datasource/remote_data/dia_example.dart' show DiaExample;
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
@@ -40,6 +43,8 @@ class MyApp extends StatelessWidget {
 
         builder: (ctx ,_) {
           return MaterialApp(
+            navigatorKey: navigatorKey,
+            initialRoute: '/',
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: lightTheme,
