@@ -2,13 +2,14 @@
 import 'package:dio/dio.dart' show Dio, BaseOptions;
 import 'package:news_app/core/datasource/remote_data/interceptor/login_interceptor.dart';
 
-import '../api_config.dart';
+import '../auth/api_config.dart';
+import 'news_api_config.dart';
 
 class NewsDioConfig {
   static Dio createDio(){
     final dio= Dio(
       BaseOptions(
-        baseUrl: ApiConfig.newsBaseUrl,
+        baseUrl: NewsApiConfig.newsBaseUrl,
         connectTimeout: Duration(seconds: 30),
         headers: {
           "accept": "application/json",

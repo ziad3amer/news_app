@@ -2,8 +2,8 @@
 import 'package:dio/dio.dart' show Dio, BaseOptions;
 import 'package:dio/src/dio_mixin.dart';
 
-import 'interceptor/auth_interceptor.dart';
-import 'interceptor/login_interceptor.dart';
+import '../interceptor/auth_interceptor.dart';
+import '../interceptor/login_interceptor.dart';
 
 class DioConfig {
   static Dio createDio(){

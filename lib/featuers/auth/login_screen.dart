@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_mangar.dart';
 import 'package:news_app/core/datasource/local_data/user_repository.dart';
-import 'package:news_app/core/datasource/remote_data/api_service.dart';
+import 'package:news_app/core/datasource/remote_data/auth/api_service.dart';
 import 'package:news_app/core/enums/request_status_enums.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/featuers/auth/cubit/auth_cubit.dart';
@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(AuthRepository(ApiService())),
+      create: (context) => AuthCubit(AuthRepository(AuthApiService())),
       child: Scaffold(
         body: BlocListener<AuthCubit, AuthState>(
           listener: (BuildContext context, state) {

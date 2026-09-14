@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/core/datasource/remote_data/api_service.dart';
+import 'package:news_app/core/datasource/remote_data/auth/api_service.dart';
 import 'package:news_app/core/repos/new_repository.dart';
 
 import 'package:news_app/featuers/home/components/categories_list.dart';

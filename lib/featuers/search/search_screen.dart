@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider, BlocBuilder;
 import 'package:news_app/core/constans/app_size.dart';
-import 'package:news_app/core/datasource/remote_data/api_service.dart';
+import 'package:news_app/core/datasource/remote_data/auth/api_service.dart';
 import 'package:news_app/core/datasource/remote_data/news/news_api_service.dart';
 import 'package:news_app/featuers/%20details/news_details_screen.dart';
 import 'package:news_app/featuers/search/cubit/search_cubit.dart';
