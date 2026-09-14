@@ -19,7 +19,7 @@ class NewsApiService extends BaseNewsApiService {
     try {
       final response = await dio.get(
         endpoint,
-        queryParameters: {"apiKey": NewsApiConfig.apiKey, ...?params},
+        queryParameters: params,
       );
 
       return response.data as Map<String, dynamic>;

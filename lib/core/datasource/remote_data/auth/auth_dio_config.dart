@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart' show Dio, BaseOptions;
 import 'package:dio/src/dio_mixin.dart';
 
+import '../interceptor/api_key_interceptor.dart';
 import '../interceptor/auth_interceptor.dart';
 import '../interceptor/login_interceptor.dart';
 
@@ -17,7 +18,7 @@ class DioConfig {
         },
       )
     );
-    dio.interceptors.addAll([LoggingInterceptor(),AuthInterceptor()]);
+    dio.interceptors.addAll([LoggingInterceptor(),AuthInterceptor(),ApiKeyInterceptor()]);
 
 
     return dio;
